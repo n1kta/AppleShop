@@ -40,7 +40,7 @@ public class ProductController : ApiController
         return Ok(response);
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     [ProducesResponseType(typeof(ApiResponse<Guid>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Create(
         [FromBody] CreateProductCommand product,
@@ -51,7 +51,7 @@ public class ProductController : ApiController
         return Ok(response);
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("delete/{id}")]
     [ProducesResponseType(typeof(ApiResponse<Guid>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
@@ -61,7 +61,7 @@ public class ProductController : ApiController
         return Ok(response);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("update/{id}")]
     [ProducesResponseType(typeof(ApiResponse<Guid>), (int)HttpStatusCode.OK)]
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> Update(Guid id, UpdateProductCommand command, CancellationToken cancellationToken)
