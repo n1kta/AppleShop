@@ -1,5 +1,6 @@
 using AppleShop.Product.API.Infrastructure;
 using AppleShop.Product.API.Installer;
+using AppleShop.Product.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.MigrateDatabase();
 

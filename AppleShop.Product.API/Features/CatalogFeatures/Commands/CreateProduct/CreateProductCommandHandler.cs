@@ -1,11 +1,11 @@
 ﻿using AppleShop.Product.API.Abstractions.Messaging;
 using AppleShop.Product.API.Infrastructure;
+using AppleShop.Product.API.Response;
 using AutoMapper;
-using MediatR;
 
 namespace AppleShop.Product.API.Features.CatalogFeatures.Commands.CreateProduct;
 
-public sealed class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
+public sealed class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, Guid>
 {
     private readonly ProductDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ public sealed class CreateProductCommandHandler : ICommandHandler<CreateProductC
         _mapper = mapper;
     }
 
-    public async Task<Unit> Handle(
+    public async Task<ApiResponse<Guid>> Handle(
         CreateProductCommand request,
         CancellationToken cancellationToken)
     {
@@ -27,6 +27,6 @@ public sealed class CreateProductCommandHandler : ICommandHandler<CreateProductC
         await _dbContext.AddAsync(model);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return Unit.Value;
+        return ApiResponse<Guid>.Success(model.Id);
     }
 }

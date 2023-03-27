@@ -21,8 +21,6 @@ public class Product : Entity
 
     public int AvailableStock { get; set; }
 
-    public bool IsAvailable => AvailableStock > 0;
-
     public string? PictureUri { get; set; }
 
     public double Price { get; set; }
@@ -31,6 +29,11 @@ public class Product : Entity
 
     [ForeignKey(nameof(CategoryId))]
     public virtual Category Category { get; set; }
+
+    /// <summary>
+    /// Check If Product Available.
+    /// </summary>
+    public bool IsAvailable => AvailableStock > 0;
 
     /// <summary>
     /// Decrements the quantity of a particular item in inventory.

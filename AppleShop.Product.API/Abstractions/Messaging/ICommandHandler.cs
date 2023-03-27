@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AppleShop.Product.API.Response;
+using MediatR;
 
 namespace AppleShop.Product.API.Abstractions.Messaging;
 
@@ -8,7 +9,7 @@ public interface ICommandHandler<TCommand> : IRequestHandler<TCommand>
 
 }
 
-public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
+public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, ApiResponse<TResponse>>
     where TCommand : ICommand<TResponse>
 {
 

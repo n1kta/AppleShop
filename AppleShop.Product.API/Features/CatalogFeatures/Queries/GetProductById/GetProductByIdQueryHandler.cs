@@ -18,7 +18,7 @@ public sealed class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQue
         _mapper = mapper;
     }
 
-    public async Task<ProductResponse> Handle(
+    public async Task<ApiResponse<ProductResponse>> Handle(
         GetProductByIdQuery request,
         CancellationToken cancellationToken)
     {
@@ -27,6 +27,6 @@ public sealed class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQue
 
         var response = _mapper.Map<ProductResponse>(product);
 
-        return response;
+        return ApiResponse<ProductResponse>.Success(response);
     }
 }

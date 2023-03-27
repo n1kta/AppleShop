@@ -1,4 +1,5 @@
 ﻿using AppleShop.Product.API.Enums;
+using AppleShop.Product.API.Models;
 
 namespace AppleShop.Product.API.Infrastructure;
 
@@ -6,14 +7,45 @@ public class ProductContextSeed
 {
     public async Task SeedAsync(ProductDbContext context)
     {
-        if (!context.Products.Any())
+        if (!context.Categories.Any())
         {
-            await context.Products.AddRangeAsync(GetPreconfiguredProducts());
+            await context.Categories.AddRangeAsync(GetPreconfiguredCategories());
+            await context.SaveChangesAsync();
+        }
+
+        if (!context.Products.Any() && context.Categories.Any())
+        {
+            var categories = context.Categories.ToList();
+
+            await context.Products.AddRangeAsync(GetPreconfiguredProducts(categories));
             await context.SaveChangesAsync();
         }
     }
 
-    private IEnumerable<Models.Product> GetPreconfiguredProducts()
+    private IEnumerable<Category> GetPreconfiguredCategories()
+    {
+        return new List<Category>()
+        {
+            new()
+            {
+                Name = "iPhone"
+            },
+            new()
+            {
+                Name = "Apple Watch"
+            },
+            new()
+            {
+                Name = "iPad"
+            },
+            new()
+            {
+                Name = "Mac"
+            }
+        };
+    }
+
+    private IEnumerable<Models.Product> GetPreconfiguredProducts(List<Category> categories)
     {
         return new List<Models.Product>()
         {
@@ -26,10 +58,7 @@ public class ProductContextSeed
                 AvailableStock = 10,
                 PictureUri = string.Empty,
                 Price = 64.602,
-                Category = new()
-                {
-                    Name = "iPhone"
-                }
+                Category = categories.Single(c => c.Name == "iPhone")
             },
             new()
             {
@@ -40,10 +69,7 @@ public class ProductContextSeed
                 AvailableStock = 5,
                 PictureUri = string.Empty,
                 Price = 33.329,
-                Category = new()
-                {
-                    Name = "Apple Watch"
-                }
+                Category = categories.Single(c => c.Name == "Apple Watch")
             },
             new()
             {
@@ -54,10 +80,7 @@ public class ProductContextSeed
                 AvailableStock = 9,
                 PictureUri = string.Empty,
                 Price = 18.818,
-                Category = new()
-                {
-                    Name = "iPad"
-                }
+                Category = categories.Single(c => c.Name == "iPad")
             },
             new()
             {
@@ -68,10 +91,7 @@ public class ProductContextSeed
                 AvailableStock = 9,
                 PictureUri = string.Empty,
                 Price = 99.677,
-                Category = new()
-                {
-                    Name = "Mac"
-                }
+                Category = categories.Single(c => c.Name == "Mac")
             }
         };
     }

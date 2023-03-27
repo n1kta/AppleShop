@@ -19,18 +19,18 @@ public sealed class GetAllProductsQueryHandler : IQueryHandler<GetAllProductsQue
         _mapper = mapper;
     }
 
-    public async Task<List<ProductResponse>> Handle(
+    public async Task<ApiResponse<List<ProductResponse>>> Handle(
         GetAllProductsQuery request,
         CancellationToken cancellationToken)
     {
         var products = await _dbContext.Products
             .Include(product => product.Category)
-            .Where(product => product.IsAvailable)
+            .Where(product => product.AvailableStock > 0)
             .AsNoTracking()
             .ToListAsync();
 
         var response = _mapper.Map<List<ProductResponse>>(products);
 
-        return response;
+        return ApiResponse<List<ProductResponse>>.Success(response);
     }
 }
