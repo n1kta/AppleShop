@@ -1,6 +1,6 @@
 ﻿using AppleShop.Web.Services.ModelDTOs;
 
-namespace AppleShop.Web.ViewModels;
+namespace AppleShop.Web.Models;
 
 public sealed record Product(string Name,
     string Description,

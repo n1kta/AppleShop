@@ -1,5 +1,5 @@
 ﻿using AppleShop.Web.Services.ModelRequests.Product;
-using AppleShop.Web.ViewModels;
+using AppleShop.Web.Models;
 
 namespace AppleShop.Web.Services;
 

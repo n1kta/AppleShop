@@ -11,6 +11,8 @@ public class Product : Entity
     [Required]
     public string Name { get; set; }
 
+    public string? Series { get; set; }
+
     [Required]
     public string Description { get; set; }
 

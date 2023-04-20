@@ -62,7 +62,8 @@ public class ProductContextSeed
             },
             new()
             {
-                Name = "Apple Watch Ultra 49mm Titanium Case",
+                Name = "Apple Watch Ultra",
+                Series = "49mm Titanium Case",
                 Description = string.Empty,
                 Color = ColorType.Black,
                 Memory = 8,

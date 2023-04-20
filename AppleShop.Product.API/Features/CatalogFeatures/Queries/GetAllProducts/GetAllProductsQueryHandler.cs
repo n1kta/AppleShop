@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AppleShop.Product.API.Features.CatalogFeatures.Queries.GetAllProducts;
 
-public sealed class GetAllProductsQueryHandler : IQueryHandler<GetAllProductsQuery, List<ProductResponse>>
+public sealed class GetAllProductsQueryHandler : IQueryHandler<GetAllProductsQuery, IReadOnlyCollection<ProductResponse>>
 {
     private readonly ProductDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ public sealed class GetAllProductsQueryHandler : IQueryHandler<GetAllProductsQue
         _mapper = mapper;
     }
 
-    public async Task<ApiResponse<List<ProductResponse>>> Handle(
+    public async Task<ApiResponse<IReadOnlyCollection<ProductResponse>>> Handle(
         GetAllProductsQuery request,
         CancellationToken cancellationToken)
     {
@@ -31,6 +31,6 @@ public sealed class GetAllProductsQueryHandler : IQueryHandler<GetAllProductsQue
 
         var response = _mapper.Map<List<ProductResponse>>(products);
 
-        return ApiResponse<List<ProductResponse>>.Success(response);
+        return ApiResponse<IReadOnlyCollection<ProductResponse>>.Success(response);
     }
 }

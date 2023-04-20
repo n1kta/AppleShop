@@ -1,9 +1,9 @@
-﻿using AppleShop.Web.Infrastructure;
+﻿using AppleShop.Web.Extensions;
+using AppleShop.Web.Infrastructure;
 using AppleShop.Web.Services.ModelRequests.Product;
 using AppleShop.Web.Services.ModelResponse;
-using AppleShop.Web.ViewModels;
+using AppleShop.Web.Models;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace AppleShop.Web.Services;
 
@@ -24,88 +24,41 @@ public class ProductService : IProductService
 
     public async Task<IEnumerable<Product>> GetAll()
     {
-        var uri = API.Product.GetAll(_remoteServiceBaseUrl);
+        var url = API.Product.GetAll(_remoteServiceBaseUrl);
+        var response = await _httpClient.GetRequestAsync<ApiResponse<List<Product>?>, List<Product>?>(url);
 
-        var responseString = await _httpClient.GetStringAsync(uri);
-
-        var apiResponse = JsonConvert.DeserializeObject<ApiResponse<List<Product>>>(responseString);
-
-        if (apiResponse == null && (apiResponse != null && !apiResponse.Succeeded))
-            return Enumerable.Empty<Product>();
-
-        var products = apiResponse.Data;
-
-        return products;
+        return response is null ? Enumerable.Empty<Product>() : response;
     }
 
     public async Task<Product?> GetById(Guid id)
     {
-        var uri = API.Product.GetById(_remoteServiceBaseUrl, id);
+        var url = API.Product.GetById(_remoteServiceBaseUrl, id);
+        var response = await _httpClient.GetRequestAsync<ApiResponse<Product?>, Product?>(url);
 
-        var responseString = await _httpClient.GetStringAsync(uri);
-
-        var apiResponse = JsonConvert.DeserializeObject<ApiResponse<Product>>(responseString);
-
-        if (apiResponse == null && (apiResponse != null && !apiResponse.Succeeded))
-            return null;
-
-        var product = apiResponse.Data;
-
-        return product;
+        return response;
     }
 
     public async Task<Guid> Create(CreateProductRequest request)
     {
-        var uri = API.Product.Create(_remoteServiceBaseUrl);
+        var url = API.Product.Create(_remoteServiceBaseUrl);
+        var response = await _httpClient.PostRequestAsync<ApiResponse<Guid?>, CreateProductRequest, Guid?>(url, request);
 
-        var body = JsonConvert.SerializeObject(request);
-
-        var responseString = await _httpClient.PostAsJsonAsync(uri, body);
-        var content = await responseString.Content.ReadAsStringAsync();
-
-        var apiResponse = JsonConvert.DeserializeObject<ApiResponse<Guid>>(content);
-
-        if (apiResponse == null && (apiResponse != null && !apiResponse.Succeeded))
-            return Guid.Empty;
-
-        var productId = apiResponse.Data;
-
-        return productId;
+        return response is null ? Guid.Empty : (Guid) response;
     }
 
     public async Task<Guid> Delete(Guid id)
     {
-        var uri = API.Product.Delete(_remoteServiceBaseUrl, id);
+        var url = API.Product.Delete(_remoteServiceBaseUrl, id);
+        var response = await _httpClient.DeleteRequestAsync<ApiResponse<Guid?>, Guid?>(url);
 
-        var responseString = await _httpClient.DeleteAsync(uri);
-        var content = await responseString.Content.ReadAsStringAsync();
-
-        var apiResponse = JsonConvert.DeserializeObject<ApiResponse<Guid>>(content);
-
-        if (apiResponse == null && (apiResponse != null && !apiResponse.Succeeded))
-            return Guid.Empty;
-
-        var productId = apiResponse.Data;
-
-        return productId;
+        return response is null ? Guid.Empty : (Guid)response;
     }
 
     public async Task<Guid> Update(Guid id, UpdateProductRequest request)
     {
-        var uri = API.Product.Update(_remoteServiceBaseUrl, id);
+        var url = API.Product.Update(_remoteServiceBaseUrl, id);
+        var response = await _httpClient.PostRequestAsync<ApiResponse<Guid?>, UpdateProductRequest, Guid?>(url, request);
 
-        var body = JsonConvert.SerializeObject(request);
-
-        var responseString = await _httpClient.PutAsJsonAsync(uri, body);
-        var content = await responseString.Content.ReadAsStringAsync();
-
-        var apiResponse = JsonConvert.DeserializeObject<ApiResponse<Guid>>(content);
-
-        if (apiResponse == null && (apiResponse != null && !apiResponse.Succeeded))
-            return Guid.Empty;
-
-        var productId = apiResponse.Data;
-
-        return productId;
+        return response is null ? Guid.Empty : (Guid)response;
     }
 }
