@@ -5,14 +5,14 @@ namespace AppleShop.Web.Extensions;
 
 public static class HttpClientExtensions
 {
-    public static async Task<TResponse?> GetRequestAsync<T, TResponse>(this HttpClient httpClient, string url)
-        where T : ApiResponse<TResponse?>
+    public static async Task<TResponse> GetRequestAsync<T, TResponse>(this HttpClient httpClient, string url)
+        where T : ApiResponse<TResponse>
     {
         var responseString = await httpClient.GetStringAsync(url);
 
         var apiResponse = JsonConvert.DeserializeObject<T>(responseString);
 
-        if (apiResponse == null && (apiResponse != null && !apiResponse.Succeeded))
+        if (apiResponse == null || (apiResponse != null && !apiResponse.Succeeded))
             return default;
 
         var data = apiResponse.Data;
@@ -33,7 +33,7 @@ public static class HttpClientExtensions
 
         var apiResponse = JsonConvert.DeserializeObject<T>(content);
 
-        if (apiResponse == null && (apiResponse != null && !apiResponse.Succeeded))
+        if (apiResponse == null || (apiResponse != null && !apiResponse.Succeeded))
             return default;
 
         var data = apiResponse.Data;
@@ -54,7 +54,7 @@ public static class HttpClientExtensions
 
         var apiResponse = JsonConvert.DeserializeObject<T>(content);
 
-        if (apiResponse == null && (apiResponse != null && !apiResponse.Succeeded))
+        if (apiResponse == null || (apiResponse != null && !apiResponse.Succeeded))
             return default;
 
         var data = apiResponse.Data;
@@ -70,7 +70,7 @@ public static class HttpClientExtensions
 
         var apiResponse = JsonConvert.DeserializeObject<T>(content);
 
-        if (apiResponse == null && (apiResponse != null && !apiResponse.Succeeded))
+        if (apiResponse == null || (apiResponse != null && !apiResponse.Succeeded))
             return default;
 
         var data = apiResponse.Data;

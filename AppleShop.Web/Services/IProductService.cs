@@ -5,9 +5,9 @@ namespace AppleShop.Web.Services;
 
 public interface IProductService
 {
-    Task<IEnumerable<Product>> GetAll();
+    Task<IEnumerable<ProductResponse>> GetAll();
 
-    Task<Product?> GetById(Guid id);
+    Task<ProductResponse?> GetById(Guid id);
 
     Task<Guid> Create(CreateProductRequest request);
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace AppleShop.Web.ViewComponents;
+namespace AppleShop.Web.Components;
 
 public class FooterViewComponent : ViewComponent
 {

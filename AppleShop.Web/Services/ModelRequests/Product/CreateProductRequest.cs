@@ -1,10 +1,10 @@
-﻿using AppleShop.Web.Services.ModelDTOs;
+﻿using AppleShop.Web.Services.ModelResponse;
 
 namespace AppleShop.Web.Services.ModelRequests.Product;
 
 public sealed record CreateProductRequest(string Name,
         string Description,
-        ColorType Color,
+        ColorTypeResponse Color,
         int Memory,
         int AvailableStock,
         string PictureUri,

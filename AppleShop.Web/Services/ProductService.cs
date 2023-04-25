@@ -19,21 +19,21 @@ public class ProductService : IProductService
         _httpClient = httpClient;
         _settings = settings;
 
-        _remoteServiceBaseUrl = $"{_settings.Value.ProductUrl}/api/v1/product";
+        _remoteServiceBaseUrl = $"{_settings.Value.ProductUrl}/api/v1";
     }
 
-    public async Task<IEnumerable<Product>> GetAll()
+    public async Task<IEnumerable<ProductResponse>> GetAll()
     {
         var url = API.Product.GetAll(_remoteServiceBaseUrl);
-        var response = await _httpClient.GetRequestAsync<ApiResponse<List<Product>?>, List<Product>?>(url);
+        var response = await _httpClient.GetRequestAsync<ApiResponse<List<ProductResponse>?>, List<ProductResponse>?>(url);
 
-        return response is null ? Enumerable.Empty<Product>() : response;
+        return response is null ? Enumerable.Empty<ProductResponse>() : response;
     }
 
-    public async Task<Product?> GetById(Guid id)
+    public async Task<ProductResponse?> GetById(Guid id)
     {
         var url = API.Product.GetById(_remoteServiceBaseUrl, id);
-        var response = await _httpClient.GetRequestAsync<ApiResponse<Product?>, Product?>(url);
+        var response = await _httpClient.GetRequestAsync<ApiResponse<ProductResponse?>, ProductResponse?>(url);
 
         return response;
     }

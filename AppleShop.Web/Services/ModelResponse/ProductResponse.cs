@@ -1,10 +1,10 @@
-﻿using AppleShop.Web.Services.ModelDTOs;
+﻿using AppleShop.Web.Services.ModelResponse;
 
 namespace AppleShop.Web.Models;
 
-public sealed record Product(string Name,
+public sealed record ProductResponse(string Name,
     string Description,
-    ColorType Color,
+    ColorTypeResponse Color,
     int Memory,
     bool IsAvailable,
     string? PictureUri,
