@@ -1,8 +1,113 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model AppleShop.Web.Models.HomeViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hello p-0 m-0">
+    <div class="container">
+        <div class="row">
+            <div class="d-flex align-items-center justify-content-center">
+                <h1 class="text-white"><em>Hello</em> in <em>AppleShop</em></h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hits p-0 m-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="hits-nav p-3">
+                    <li class="nav-item">
+                        <h4><a class="nav-link text-white" href="#">Топ продажу</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link text-white" href="#">Новинки</a></h4>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+@await Component.InvokeAsync("GetTopProducts");
+
+<section class="categories mt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="category-banner-full">
+                    <div class="banner-image">
+                        <img src="~/images/macbook.png" alt="Macbook">
+                    </div>
+                    <div class="banner-container">
+                        <div class="banner-title">
+                            <a href="#">Mac</a>
+                        </div>
+                        <div class="banner-amount-of-products pt-3">
+                            Товарів: @Model.Dashboard.MacAmount
+                        </div>
+                        <div class="pt-5">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@(Guid.Parse("D7E4B3A8-8652-4922-4ABE-08DB419A7FA2"))" class="banner-link">Переглянути моделі <i
+                                    class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-7">
+                <div class="category-banner-part">
+                    <div class="banner-container">
+                        <div class="banner-title">
+                            <a href="#">iPhone</a>
+                        </div>
+                        <div class="banner-amount-of-products pt-3">
+                            Товарів: @Model.Dashboard.IPhoneAmount
+                        </div>
+                        <div class="pt-5">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@(Guid.Parse("4A577D9F-32CF-453E-4ABB-08DB419A7FA2"))" class="banner-link">Переглянути моделі <i
+                                    class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="banner-image">
+                        <img src="~/images/iphone.png" alt="Macbook">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="category-banner-part">
+                    <div class="banner-container">
+                        <div class="banner-title">
+                            <a href="#">iPad</a>
+                        </div>
+                        <div class="banner-amount-of-products pt-3">
+                            Товарів: @Model.Dashboard.IPadAmount
+                        </div>
+                        <div class="pt-5">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@(Guid.Parse("B422B561-7909-4D29-4ABD-08DB419A7FA2"))" class="banner-link">Переглянути моделі <i
+                                    class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="banner-image">
+                        <img src="~/images/ipad.png" alt="iPad">
+                    </div>
+                </div>
+                <div class="category-banner-part mt-2">
+                    <div class="banner-container">
+                        <div class="banner-title">
+                            <a href="#">Apple Watch</a>
+                        </div>
+                        <div class="banner-amount-of-products pt-3">
+                            Товарів: @Model.Dashboard.AppleWatchAmount
+                        </div>
+                        <div class="pt-5">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@(Guid.Parse("B4C5DC85-1FA3-43A0-4ABC-08DB419A7FA2"))" class="banner-link">Переглянути моделі <i
+                                    class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="banner-image">
+                        <img src="~/images/applewatch.png" alt="iPad">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

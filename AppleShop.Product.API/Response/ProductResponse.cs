@@ -1,12 +1,3 @@
-﻿using AppleShop.Product.API.Enums;
+﻿namespace AppleShop.Product.API.Response;
 
-namespace AppleShop.Product.API.Response;
-
-public sealed record ProductResponse(string Name,
-    string Description,
-    ColorType Color,
-    int Memory,
-    bool IsAvailable,
-    string? PictureUri,
-    double Price,
-    string CategoryName);
+public sealed record ProductResponse(Guid Id, string Name);

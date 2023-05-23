@@ -5,13 +5,13 @@ namespace AppleShop.Web.Services.ModelResponse;
 public class ApiResponse<T>
 {
     [JsonProperty("data")]
-    public T? Data { get; private set; }
+    public T? Data { get; protected set; }
 
     [JsonProperty("succeeded")]
-    public bool Succeeded { get; private set; }
+    public bool Succeeded { get; protected set; }
 
     [JsonProperty("message")]
-    public string? Message { get; private set; }
+    public string? Message { get; protected set; }
 
     public static ApiResponse<T> Fail(string message)
         => new ApiResponse<T> { Succeeded = false, Message = message };

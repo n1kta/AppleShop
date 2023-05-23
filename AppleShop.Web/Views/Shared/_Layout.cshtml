@@ -13,13 +13,14 @@
         crossorigin="anonymous"></script>
 </head>
 <body>
+    <div>
+        @await Component.InvokeAsync("Header")
+        <main>
+            @RenderBody()
+        </main>
+        @await Component.InvokeAsync("Footer")
+    </div>
 
-    @await Component.InvokeAsync("Header");
-
-    <main role="main">
-        @RenderBody()
-    </main>
-
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("scripts", required: false)
 </body>
 </html>

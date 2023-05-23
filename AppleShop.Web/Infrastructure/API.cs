@@ -18,6 +18,12 @@ public static class API
 
         public static string Update(string baseUri, Guid id)
             => $"{baseUri}/product/update/{id}";
+
+        public static string GetDashboardAmount(string baseUri)
+            => $"{baseUri}/product/getDashboardAmount";
+
+        public static string GetTopProducts(string baseUri)
+            => $"{baseUri}/product/getTopProducts";
     }
 
     public static class Category

@@ -1,4 +1,5 @@
 using AppleShop.Web.Installer;
+using Microsoft.AspNetCore.Authentication;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,33 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.RegisterServices(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = "Cookies";
+    options.DefaultChallengeScheme = "oidc";
+})
+.AddCookie("Cookies", c => {
+    c.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+    c.LoginPath = "/Account/Login/";
+})
+.AddOpenIdConnect("oidc", options =>
+{
+    options.Authority = builder.Configuration["IdentityUrl"];
+    options.GetClaimsFromUserInfoEndpoint = true;
+    options.ClientId = "mango";
+    options.ClientSecret = "secret";
+    options.ResponseType = "code";
+
+    options.ClaimActions.MapJsonKey("role", "role", "role");
+    options.ClaimActions.MapJsonKey("sub", "sub", "sub");
+
+    options.TokenValidationParameters.NameClaimType = "name";
+    options.TokenValidationParameters.RoleClaimType = "role";
+
+    options.Scope.Add("openid");
+    options.SaveTokens = true;
+});
 
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
@@ -28,6 +56,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

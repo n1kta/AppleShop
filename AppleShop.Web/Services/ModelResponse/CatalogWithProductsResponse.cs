@@ -2,4 +2,4 @@
 
 public sealed record CatalogWithProductsResponse(Guid Id,
     string Name,
-    IReadOnlyCollection<string> ProductName);
+    IReadOnlyCollection<ProductResponse> Product);

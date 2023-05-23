@@ -1,4 +1,4 @@
-﻿using AppleShop.Product.API.Features.CatalogFeatures.Queries.GetAllCategoriesWithProducts;
+﻿using AppleShop.Product.API.Features.Category.Queries.GetAllCategoriesWithProducts;
 using AppleShop.Product.API.Response;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

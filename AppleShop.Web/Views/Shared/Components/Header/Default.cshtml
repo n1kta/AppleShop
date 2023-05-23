@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<AppleShop.Web.Services.ModelResponse.CatalogWithProductsResponse>
-
 <header
     class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 navbar-dark p-4">
     <a class="navbar-brand" href="/">AppleShop</a>
@@ -12,17 +11,29 @@
                     @item.Name
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @foreach (var name in item.ProductName)
+                    @foreach (var product in item.Product)
                     {
-                        <a class="dropdown-item" href="#">@name</a>
+                        <a class="dropdown-item" asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">@product.Name</a>
                     }
                 </div>
             </li>
         }
+        <li>
+            <a class="nav-link text-white" role="button" asp-controller="Product" asp-action="Index" asp-route-id="@Guid.Empty">Всі продукти</a>
+        </li>
     </ul>
 
     <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+            <span>@User.Identity.Name</span>
+            <a class="btn btn-primary" asp-action="Logout" asp-controller="Home">Logout</a>
+        }
+        else
+        {
+            <a class="btn btn-outline-primary me-2" asp-action="Login" asp-controller="Home">Login</a>
+            <a class="btn btn-primary">Sign-up</a>
+        }
     </div>
 </header>

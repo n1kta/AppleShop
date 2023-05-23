@@ -5,6 +5,8 @@ namespace AppleShop.Web.Extensions;
 
 public static class HttpClientExtensions
 {
+    #region ApiResponse
+
     public static async Task<TResponse> GetRequestAsync<T, TResponse>(this HttpClient httpClient, string url)
         where T : ApiResponse<TResponse>
     {
@@ -77,4 +79,22 @@ public static class HttpClientExtensions
 
         return data;
     }
+
+    #endregion
+
+    #region PagedResponse
+
+    public static async Task<Services.Wrappers.PagedResponse<T>> GetPagedRequestAsync<T>(this HttpClient httpClient, string url)
+    {
+        var responseString = await httpClient.GetStringAsync(url);
+
+        var apiResponse = JsonConvert.DeserializeObject<Services.Wrappers.PagedResponse<T>>(responseString);
+
+        if (apiResponse == null || (apiResponse != null && !apiResponse.Succeeded))
+            return default;
+
+        return apiResponse;
+    }
+
+    #endregion
 }

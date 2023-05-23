@@ -1,5 +1,5 @@
-﻿using AppleShop.Product.API.Features.CatalogFeatures.Commands.CreateProduct;
-using AppleShop.Product.API.Features.CatalogFeatures.Commands.UpdateProduct;
+﻿using AppleShop.Product.API.Features.Product.Commands.CreateProduct;
+using AppleShop.Product.API.Features.Product.Commands.UpdateProduct;
 using AppleShop.Product.API.Response;
 using AutoMapper;
 
@@ -10,10 +10,10 @@ public class ProductProfile : Profile
     public ProductProfile()
     {
         // Model -> Dto
-        CreateMap<Models.Product, ProductResponse>();
+        CreateMap<Models.Product, ProductDetailResponse>();
 
         // Dto -> Model
-        CreateMap<ProductResponse, Models.Product>();
+        CreateMap<ProductDetailResponse, Models.Product>();
         CreateMap<CreateProductCommand, Models.Product>();
         CreateMap<UpdateProductCommand, Models.Product>();
     }

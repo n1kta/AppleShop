@@ -1,0 +1,120 @@
+﻿@model ProductListViewModel
+
+<section class="products">
+    <div class="filter">
+        <form action="">
+            <h1>Фільтр</h1>
+            <div class="model-filter mt-4">
+                <h3>Колір:</h3>
+                <div class="model">
+                    <div class="model-value">
+                        <input type="checkbox" class="form-check" name="">
+                        <label for="ram64">Чорний</label>
+                    </div>
+                    <div class="model-value">
+                        <input type="checkbox" class="form-check" name="">
+                        <label for="ram64">Білий</label>
+                    </div>
+                </div>
+            </div>
+            <div class="price-filter mt-2">
+                <h3>Ціна:</h3>
+                <div class="price">
+                    <input type="text" class="form-control" placeholder="Мін. ціна" name="minPrice">
+                    <input type="text" class="form-control mt-2" placeholder="Макс. ціна" name="maxPrice">
+                </div>
+            </div>
+            <div class="ram-filter mt-2">
+                <h3>Об'єм пам'яті:</h3>
+                <div class="ram">
+                    <div class="ram-value">
+                        <input type="checkbox" class="form-check" name="">
+                        <label for="ram64">64 GB</label>
+                    </div>
+                    <div class="ram-value">
+                        <input type="checkbox" class="form-check" name="">
+                        <label for="ram64">128 GB</label>
+                    </div>
+                    <div class="ram-value">
+                        <input type="checkbox" class="form-check" name="">
+                        <label for="ram64">256 GB</label>
+                    </div>
+                    <div class="ram-value">
+                        <input type="checkbox" class="form-check" name="">
+                        <label for="ram64">512 GB</label>
+                    </div>
+                    <div class="ram-value">
+                        <input type="checkbox" class="form-check" name="">
+                        <label for="ram64">1 TB</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2">
+                <button class="btn btn-primary" type="submit">Застосувати</button>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product">
+                    <div class="mt-4">
+                        <ul class="hit-products-container">
+                            @foreach (var item in Model.Products.Data)
+                            {
+                                <li class="product card">
+                                    <img class="card-img-top" src="..." alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@item.Name</h5>
+                                        <div class="product-status mb-2">
+                                            @if (item.IsAvailable)
+                                            {
+                                                <span class="card-text">В наявності</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="card-text">Нема в наявності</span>
+                                            }
+                                        </div>
+                                        <div class="product-price mb-2">
+                                            <h5 class="card-text">@item.Price грн</h5>
+                                        </div>
+                                        <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary">Детальніше</a>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <nav aria-label="Page navigation example" style="padding: 0 0 0 1rem;">
+                    <ul class="pagination">
+                        @if (Model.Products.HasPreviousPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-id="@Model.Products.Id" asp-route-pageNumber="@(Model.Products.PageNumber - 1)" asp-route-pageSize="@Model.Products.PageSize" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        }
+                        @foreach (var item in Model.Products.Pages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-id="@Model.Products.Id" asp-route-pageNumber="@item" asp-route-pageSize="@Model.Products.PageSize">@item</a>
+                            </li>
+                        }
+                        @if (Model.Products.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-id="@Model.Products.Id" asp-route-pageNumber="@(Model.Products.PageNumber + 1)" asp-route-pageSize="@Model.Products.PageSize" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>

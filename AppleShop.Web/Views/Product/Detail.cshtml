@@ -1,0 +1,83 @@
+﻿@using AppleShop.Web.Services.ModelResponse
+@model ProductDetailViewModel
+
+@{
+    if (Model.Product is null)
+        return;
+}
+
+<form method="post">
+    <input hidden />
+    <div class="pt-4">
+        <div class="card container">
+            <div class="card-header text-light row" style="border-radius: 0px; background-color: #100c0c;">
+                <div class="col-12 col-md-6">
+                    <h1 class="text-white">@($"{Model.Product.Name} {Model.Product.Series}")</h1>
+                </div>
+                <div class="col-12 col-md-6 text-end">
+                    <h1 class="text-warning">@Model.Product.Price грн</h1>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="container rounded p-2">
+                    <div class="row">
+                        <div class="col-12 col-lg-4 p-1 text-center">
+                            <img src="@Model.Product.PictureUri" style="border-radius:35px;" width="100%"
+                                class="rounded" />
+                        </div>
+                        <div class="col-12 col-lg-8">
+                            <div class="row pl-3">
+                                <div class="col-12">
+                                    <span class="badge badge-primary text-success p-3 border">@Model.Product.CategoryName</span>
+                                    <h3 class="text-success"></h3>
+                                    <div>
+                                        @if (Model.Product.IsAvailable)
+                                        {
+                                            <span class="text-warning">В наявності</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger">Немає в наявності</span>
+                                        }
+                                    </div>
+                                    <p class="text-dark">@Html.Raw(Model.Product.Description)</p>
+                                    <h5 class="sizes">Об'єм пам'яті:
+                                        <span class="size">@Model.Product.Memory GB</span>
+                                    </h5>
+                                    <h5 class="colors">Колір:
+                                        @if (Model.Product.Color == ColorTypeResponse.White)
+                                        {
+                                            <span class="color">Білий</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="color">Чорний</span>
+                                        }
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-left: calc(var(--bs-gutter-x)/ 2);">
+                                <input class="form-control" required />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer row" style="background-color: #100c0c;">
+                <div class="col-12 col-md-6 pb-1 ">
+                    <a class="btn btn-success btn-square form-control btn-lg"
+                        style="height:50px; background-color: #198754;"
+                        asp-controller="Product"
+                        asp-action="Index">Back to
+                        List</a>
+                </div>
+                <div class="col-12 col-md-6 ">
+                    <button type="submit" class="btn btn-primary form-control btn-lg"
+                        style="height:50px; background-color: #fc8434;">Add
+                        to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

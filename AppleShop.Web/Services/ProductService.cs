@@ -4,6 +4,7 @@ using AppleShop.Web.Services.ModelRequests.Product;
 using AppleShop.Web.Services.ModelResponse;
 using AppleShop.Web.Models;
 using Microsoft.Extensions.Options;
+using AppleShop.Web.Services.Wrappers;
 
 namespace AppleShop.Web.Services;
 
@@ -22,18 +23,29 @@ public class ProductService : IProductService
         _remoteServiceBaseUrl = $"{_settings.Value.ProductUrl}/api/v1";
     }
 
-    public async Task<IEnumerable<ProductResponse>> GetAll()
+    public async Task<PagedResponse<List<ProductDetailResponse>>> GetAll(Guid? categoryId, int pageNumber = 1, int pageSize = 10)
     {
-        var url = API.Product.GetAll(_remoteServiceBaseUrl);
-        var response = await _httpClient.GetRequestAsync<ApiResponse<List<ProductResponse>?>, List<ProductResponse>?>(url);
+        var url = API.Product.GetAll(_remoteServiceBaseUrl) + "?";
 
-        return response is null ? Enumerable.Empty<ProductResponse>() : response;
+        if (Guid.Empty != categoryId)
+            url += $"id={categoryId}&";
+
+        url += $"pageNumber={pageNumber}&pageSize={pageSize}";
+
+        var response = await _httpClient.GetPagedRequestAsync<List<ProductDetailResponse>>(url);
+
+        return response is null 
+            ? new PagedResponse<List<ProductDetailResponse>>(Guid.Empty,
+                Enumerable.Empty<ProductDetailResponse>().ToList(),
+                pageNumber,
+                pageSize,
+                default) : response;
     }
 
-    public async Task<ProductResponse?> GetById(Guid id)
+    public async Task<ProductDetailResponse?> GetById(Guid id)
     {
         var url = API.Product.GetById(_remoteServiceBaseUrl, id);
-        var response = await _httpClient.GetRequestAsync<ApiResponse<ProductResponse?>, ProductResponse?>(url);
+        var response = await _httpClient.GetRequestAsync<ApiResponse<ProductDetailResponse?>, ProductDetailResponse?>(url);
 
         return response;
     }
@@ -60,5 +72,21 @@ public class ProductService : IProductService
         var response = await _httpClient.PostRequestAsync<ApiResponse<Guid?>, UpdateProductRequest, Guid?>(url, request);
 
         return response is null ? Guid.Empty : (Guid)response;
+    }
+
+    public async Task<Dictionary<string, int>> GetDashboardAmount()
+    {
+        var url = API.Product.GetDashboardAmount(_remoteServiceBaseUrl);
+        var response = await _httpClient.GetRequestAsync<ApiResponse<Dictionary<string, int>>, Dictionary<string, int>>(url);
+
+        return response;
+    }
+
+    public async Task<IEnumerable<ProductDetailResponse>> GetTopProducts()
+    {
+        var url = API.Product.GetTopProducts(_remoteServiceBaseUrl);
+        var response = await _httpClient.GetRequestAsync<ApiResponse<List<ProductDetailResponse>?>, List<ProductDetailResponse>?>(url);
+
+        return response is null ? Enumerable.Empty<ProductDetailResponse>() : response;
     }
 }
