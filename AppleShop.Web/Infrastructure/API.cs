@@ -31,4 +31,19 @@ public static class API
         public static string GetAllWithProducts(string baseUri)
             => $"{baseUri}/category/getAllWithProducts";
     }
+
+    public static class Basket
+    {
+        public static string GetCart(string baseUri, string userId)
+            => $"{baseUri}/cart/getCart/{userId}";
+
+        public static string AddCart(string baseUri)
+            => $"{baseUri}/cart/addCart";
+
+        public static string UpdateCart(string baseUri)
+            => $"{baseUri}/cart/updateCart";
+
+        public static string RemoveCart(string baseUri, int cartId)
+            => $"{baseUri}/cart/removeCart/{cartId}";
+    }
 }
