@@ -8,9 +8,14 @@ namespace AppleShop.Basket.API.MappingProfiles
     {
         public ShoppingCartProfile()
         {
-            CreateMap<CartHeader, CartHeaderDto>().ReverseMap();
-            CreateMap<CartDetail, CartDetailDto>().ReverseMap();
-            CreateMap<Cart, CartDto>().ReverseMap();
+            CreateMap<Cart, CartDto>();
+            CreateMap<CartHeader, CartHeaderDto>();
+            CreateMap<CartDetail, CartDetailDto>()
+                .ForMember(dest => dest.Product, src => src.MapFrom(s => s.Product));
+
+            CreateMap<CartDto, Cart>();
+            CreateMap<CartHeaderDto, CartHeader>();
+            CreateMap<CartDetailDto, CartDetail>();
         }
     }
 }

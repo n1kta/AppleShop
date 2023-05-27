@@ -1,4 +1,5 @@
 using AppleShop.Basket.API.Infrastructure;
+using AppleShop.Basket.API.MessageSender;
 using AppleShop.Basket.API.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<ShoppingCartDbContext>(options =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+
+builder.Services.AddScoped<IMessageSender, RabbitMQMessageSender>();
 
 builder.Services.AddAuthentication(options =>
 {

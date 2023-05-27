@@ -1,0 +1,56 @@
+﻿@using AppleShop.Identity.API.MainModule.Account
+@model RegisterViewModel
+
+<div class="login-page">
+    <div class="lead">
+        <h1>Register</h1>
+        <p>Choose how to register</p>
+    </div>
+
+    <partial name="_ValidationSummary" />
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Local Account Register</h2>
+                </div>
+
+                <div class="card-body">
+                    <form asp-route="Login">
+                        <input type="hidden" asp-for="ReturnUrl" />
+
+                        <div class="form-group">
+                            <label asp-for="Username">Ім'я користувача</label>
+                            <input class="form-control" placeholder="Ім'я користувача" asp-for="Username" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email">Електронна пошта</label>
+                            <input class="form-control" placeholder="Електронна пошта" asp-for="Email" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirstName">Ім'я</label>
+                            <input class="form-control" placeholder="Ім'я" asp-for="FirstName" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName">Прізвище</label>
+                            <input class="form-control" placeholder="Прізвище" asp-for="LastName" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password">Пароль</label>
+                            <input type="password" class="form-control" placeholder="Пароль" asp-for="Password" autocomplete="off">
+                        </div>
+                        <div class="m-2"></div>
+                        <button class="btn btn-primary" name="button" value="Register">Зареєструватися</button>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <a href="@Url.Action("Login",new {Model.ReturnUrl })">Login</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

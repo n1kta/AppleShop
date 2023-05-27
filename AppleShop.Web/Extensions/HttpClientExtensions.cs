@@ -1,5 +1,6 @@
 ﻿using AppleShop.Web.Services.ModelResponse;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace AppleShop.Web.Extensions;
 
@@ -30,7 +31,7 @@ public static class HttpClientExtensions
     {
         var body = JsonConvert.SerializeObject(request);
 
-        var responseString = await httpClient.PostAsJsonAsync(url, body);
+        var responseString = await httpClient.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
         var content = await responseString.Content.ReadAsStringAsync();
 
         var apiResponse = JsonConvert.DeserializeObject<T>(content);

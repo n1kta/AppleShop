@@ -45,5 +45,8 @@ public static class API
 
         public static string RemoveCart(string baseUri, int cartId)
             => $"{baseUri}/cart/removeCart/{cartId}";
+
+        public static string Checkout(string baseUri)
+            => $"{baseUri}/cart/checkout";
     }
 }

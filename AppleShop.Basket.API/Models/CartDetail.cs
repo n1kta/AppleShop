@@ -13,7 +13,7 @@ namespace AppleShop.Basket.API.Models
         [ForeignKey(nameof(CartHeaderId))]
         public virtual CartHeader CartHeader { get; set;}
 
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
         [ForeignKey(nameof(ProductId))]
         public virtual Product Product { get; set; }

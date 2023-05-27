@@ -26,14 +26,14 @@
     <div class="col-md-3 text-end">
         @if (User.Identity.IsAuthenticated)
         {
-            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-            <span>@User.Identity.Name</span>
+            <span class="text-white mx-sm-2">@User.Identity.Name</span>
+            <a class="mx-sm-2" asp-controller="Cart" asp-action="CartIndex"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
             <a class="btn btn-primary" asp-action="Logout" asp-controller="Home">Logout</a>
         }
         else
         {
-            <a class="btn btn-outline-primary me-2" asp-action="Login" asp-controller="Home">Login</a>
-            <a class="btn btn-primary">Sign-up</a>
+            <a class="btn btn-outline-primary me-2" asp-action="Login" asp-controller="Home">Логін</a>
+            <a class="btn btn-primary" asp-action="Register" asp-controller="Home">Реєстрація</a>
         }
     </div>
 </header>

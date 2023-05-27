@@ -18,5 +18,9 @@ public class ServiceInstaller : IInstaller
         services.AddHttpClient<ICategoryService, CategoryService>()
             .SetHandlerLifetime(TimeSpan.FromMinutes(HandlerLifetime))
             .AddPolicyHandlers("PolicyConfig", configuration);
+
+        services.AddHttpClient<ICartService, CartService>()
+            .SetHandlerLifetime(TimeSpan.FromMinutes(HandlerLifetime))
+            .AddPolicyHandlers("PolicyConfig", configuration);
     }
 }

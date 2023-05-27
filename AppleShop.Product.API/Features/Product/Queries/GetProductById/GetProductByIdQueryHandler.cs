@@ -2,6 +2,7 @@
 using AppleShop.Product.API.Infrastructure;
 using AppleShop.Product.API.Response;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppleShop.Product.API.Features.Product.Queries.GetProductById;
 
@@ -23,7 +24,8 @@ public sealed class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQue
         CancellationToken cancellationToken)
     {
         var product = await _dbContext.Products
-            .FindAsync(request.Id);
+            .Include(p => p.Category)
+            .FirstOrDefaultAsync(p => p.Id == request.Id);
 
         var result = _mapper.Map<ProductDetailResponse>(product);
 

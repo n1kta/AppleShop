@@ -24,32 +24,46 @@ public class CartController : Controller
         return View(await LoadCartDtoBasedOnLoggedInUser());
     }
 
+    public async Task<IActionResult> Remove(int cartDetailId)
+    {
+        var userId = User.Claims.FirstOrDefault(u => u.Type == "sub")?.Value;
+        var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+        var response = await _cartService.RemoveFromCartAsync(cartDetailId, accessToken);
+
+        if (response)
+        {
+            return RedirectToAction(nameof(CartIndex));
+        }
+
+        return View();
+    }
+
     public async Task<IActionResult> Checkout()
     {
-        return View();
+        return View(await LoadCartDtoBasedOnLoggedInUser());
     }
 
     [HttpPost]
     public async Task<IActionResult> Checkout(CartDto dto)
     {
-        return Ok();
-        //try
-        //{
-        //    var accessToken = await HttpContext.GetTokenAsync("access_token");
-        //    var response = await _cartService.Checkout<>(dto.CartHeader, accessToken);
+        try
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _cartService.Checkout(dto.CartHeader, accessToken);
 
-        //    if (!response.IsSuccess)
-        //    {
-        //        ViewBag.Error = string.Join(", ", response.ErrorMessages);
-        //        return RedirectToAction(nameof(Checkout));
-        //    }
+            if (!response)
+            {
+                TempData["Error"] = "Сталась помилка";
+                return RedirectToAction(nameof(Checkout));
+            }
 
-        //    return RedirectToAction(nameof(Confirmation));
-        //}
-        //catch (Exception)
-        //{
-        //    return View(dto);
-        //}
+            return RedirectToAction(nameof(Confirmation));
+        }
+        catch (Exception e)
+        {
+            return View(dto);
+        }
     }
 
     [HttpGet]
@@ -71,7 +85,7 @@ public class CartController : Controller
         if (cartDto.CartHeader != null)
         {
             cartDto.CartHeader.OrderTotal =
-                cartDto.CartDetails.Sum(cd => cd.Product.Price * cd.Count) - cartDto.CartHeader.DiscountTotal;
+                cartDto.CartDetails.Sum(cd => cd.Product.Price * cd.Count);
         }
 
         return cartDto;

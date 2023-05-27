@@ -18,7 +18,7 @@ public class CartService : ICartService
         _httpClient = httpClient;
         _settings = settings;
 
-        _remoteServiceBaseUrl = $"{_settings.Value.BasketUrl}/api/v1";
+        _remoteServiceBaseUrl = $"{_settings.Value.BasketUrl}/api";
     }
 
     public async Task<CartDto?> AddCartAsync(CartDto cartDto, string token)
@@ -30,9 +30,13 @@ public class CartService : ICartService
         return response;
     }
 
-    public Task<T> Checkout<T>(CartHeaderDto dto, string token)
+    public async Task<bool> Checkout(CartHeaderDto dto, string token)
     {
-        throw new NotImplementedException();
+        var url = API.Basket.Checkout(_remoteServiceBaseUrl);
+
+        var response = await _httpClient.PostRequestAsync<ApiResponse<bool>, CartHeaderDto, bool>(url, dto);
+
+        return response;
     }
 
     public async Task<CartDto?> GetCartByUserIdAsync(string userId, string token)

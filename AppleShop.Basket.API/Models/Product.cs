@@ -7,7 +7,7 @@ namespace AppleShop.Basket.API.Models
     public class Product
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
         [Required]
         public string Name { get; set; }

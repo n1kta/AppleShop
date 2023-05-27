@@ -7,7 +7,7 @@
 }
 
 <form method="post">
-    <input hidden />
+    <input asp-for="Product.Id" hidden />
     <div class="pt-4">
         <div class="card container">
             <div class="card-header text-light row" style="border-radius: 0px; background-color: #100c0c;">
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="row" style="padding-left: calc(var(--bs-gutter-x)/ 2);">
-                                <input class="form-control" required />
+                                <input asp-for="Product.Count" class="form-control" required min="1" max="@Model.Product.AvailableStock" />
                                 <span class="text-danger"></span>
                             </div>
                         </div>
@@ -69,13 +69,12 @@
                     <a class="btn btn-success btn-square form-control btn-lg"
                         style="height:50px; background-color: #198754;"
                         asp-controller="Product"
-                        asp-action="Index">Back to
-                        List</a>
+                        asp-action="Index"
+                        asp-route-id="@Guid.Empty">Назад до списку</a>
                 </div>
                 <div class="col-12 col-md-6 ">
                     <button type="submit" class="btn btn-primary form-control btn-lg"
-                        style="height:50px; background-color: #fc8434;">Add
-                        to Cart</button>
+                        style="height:50px; background-color: #fc8434;">Додати в кошик</button>
                 </div>
             </div>
         </div>

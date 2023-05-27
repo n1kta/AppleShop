@@ -28,14 +28,14 @@ namespace AppleShop.Identity.API.Seed
                 new Client
                 {
                     ClientId = "client",
-                    ClientSecrets = { new Secret("secret") },
+                    ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = { "read", "write", "profile" }
                 },
                 new Client
                 {
                     ClientId = "mango",
-                    ClientSecrets = { new Secret("secret") },
+                    ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.Code,
                     RedirectUris = { "https://localhost:7010/signin-oidc" },
                     PostLogoutRedirectUris = { "https://localhost:7010/signout-callback-oidc" },

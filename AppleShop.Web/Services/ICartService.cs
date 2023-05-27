@@ -12,5 +12,5 @@ public interface ICartService
 
     Task<bool> RemoveFromCartAsync(int cartId, string token);
 
-    Task<T> Checkout<T>(CartHeaderDto dto, string token);
+    Task<bool> Checkout(CartHeaderDto dto, string token);
 }

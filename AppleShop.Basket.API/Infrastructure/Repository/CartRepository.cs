@@ -29,14 +29,26 @@ namespace AppleShop.Basket.API.Repository
 
         public async Task<Cart> CreateUpdateCart(Cart cart)
         {
-            var cartHeader = await _context.CartHeaders
-                .FirstOrDefaultAsync(ch => ch.UserId == cart.CartHeader.UserId);
-
-            if (cartHeader == null)
+            //check if product exists in database, if not create it!
+            var prodInDb = await _context.Products
+                .FirstOrDefaultAsync(u => u.ProductId == cart.CartDetails.FirstOrDefault()
+                .ProductId);
+            if (prodInDb == null)
             {
+                _context.Products.Add(cart.CartDetails.FirstOrDefault().Product);
+                await _context.SaveChangesAsync();
+            }
+
+
+            //check if header is null
+            var cartHeaderFromDb = await _context.CartHeaders.AsNoTracking()
+                .FirstOrDefaultAsync(u => u.UserId == cart.CartHeader.UserId);
+
+            if (cartHeaderFromDb == null)
+            {
+                //create header and details
                 _context.CartHeaders.Add(cart.CartHeader);
                 await _context.SaveChangesAsync();
-
                 cart.CartDetails.FirstOrDefault().CartHeaderId = cart.CartHeader.CartHeaderId;
                 cart.CartDetails.FirstOrDefault().Product = null;
                 _context.CartDetails.Add(cart.CartDetails.FirstOrDefault());
@@ -44,23 +56,27 @@ namespace AppleShop.Basket.API.Repository
             }
             else
             {
-                var cartDetail = await _context.CartDetails.FirstOrDefaultAsync(
-                    cd => cd.ProductId == cart.CartDetails.FirstOrDefault().ProductId &&
-                    cd.CartHeaderId == cartHeader.CartHeaderId);
+                //if header is not null
+                //check if details has same product
+                var cartDetailsFromDb = await _context.CartDetails.AsNoTracking().FirstOrDefaultAsync(
+                    u => u.ProductId == cart.CartDetails.FirstOrDefault().ProductId &&
+                    u.CartHeaderId == cartHeaderFromDb.CartHeaderId);
 
-                if (cartDetail == null)
+                if (cartDetailsFromDb == null)
                 {
-                    cart.CartDetails.FirstOrDefault().CartHeaderId = cartHeader.CartHeaderId;
+                    //create details
+                    cart.CartDetails.FirstOrDefault().CartHeaderId = cartHeaderFromDb.CartHeaderId;
                     cart.CartDetails.FirstOrDefault().Product = null;
                     _context.CartDetails.Add(cart.CartDetails.FirstOrDefault());
                     await _context.SaveChangesAsync();
                 }
                 else
                 {
+                    //update the count / cart details
                     cart.CartDetails.FirstOrDefault().Product = null;
-                    cart.CartDetails.FirstOrDefault().Count += cartDetail.Count;
-                    cart.CartDetails.FirstOrDefault().CartDetailId = cartDetail.CartDetailId;
-                    cart.CartDetails.FirstOrDefault().CartHeaderId = cartDetail.CartHeaderId;
+                    cart.CartDetails.FirstOrDefault().Count += cartDetailsFromDb.Count;
+                    cart.CartDetails.FirstOrDefault().CartDetailId = cartDetailsFromDb.CartDetailId;
+                    cart.CartDetails.FirstOrDefault().CartHeaderId = cartDetailsFromDb.CartHeaderId;
                     _context.CartDetails.Update(cart.CartDetails.FirstOrDefault());
                     await _context.SaveChangesAsync();
                 }
@@ -69,11 +85,16 @@ namespace AppleShop.Basket.API.Repository
             return cart;
         }
 
-        public async Task<Cart> GetCartByUserId(string userId)
+        public async Task<Cart?> GetCartByUserId(string userId)
         {
+            var cartHeader = await _context.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userId);
+
+            if (cartHeader is null)
+                return null;
+
             Cart cart = new()
             {
-                CartHeader = await _context.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userId)
+                CartHeader = cartHeader
             };
 
             cart.CartDetails = _context.CartDetails

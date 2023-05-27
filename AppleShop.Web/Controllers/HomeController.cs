@@ -2,15 +2,20 @@
 using AppleShop.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace AppleShop.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IOptions<AppSettings> _settings;
 
-        public HomeController(IProductService productService)
-            => _productService = productService;
+        public HomeController(IProductService productService, IOptions<AppSettings> settings)
+        {
+            _productService = productService;
+            _settings = settings;
+        }
 
         public async Task<IActionResult> Index()
         {
@@ -19,6 +24,11 @@ namespace AppleShop.Web.Controllers
             var result = new HomeViewModel(dashboardAmount);
 
             return View(result);
+        }
+
+        public async Task<IActionResult> Register()
+        {
+            return Redirect($"{_settings.Value.IdentityUrl}/Account/Register?returnUrl={_settings.Value.WebUrl}");
         }
 
         [Authorize]

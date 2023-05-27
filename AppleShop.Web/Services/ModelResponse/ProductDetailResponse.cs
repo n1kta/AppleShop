@@ -9,6 +9,8 @@ public sealed record ProductDetailResponse(Guid Id,
     ColorTypeResponse Color,
     int Memory,
     bool IsAvailable,
+    int AvailableStock,
     string? PictureUri,
     double Price,
-    string CategoryName);
+    string CategoryName,
+    int Count = 1);
