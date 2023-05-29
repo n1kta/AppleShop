@@ -29,9 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{B3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppleShop.Identity.API", "AppleShop.Identity.API\AppleShop.Identity.API.csproj", "{4588F0DC-EBD0-4121-BAB8-3FFC85756403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppleShop.Basket.API", "AppleShop.Basket.API\AppleShop.Basket.API.csproj", "{0C8000E8-12E0-453C-B3D7-3830CBFFA52B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppleShop.Basket.API", "AppleShop.Basket.API\AppleShop.Basket.API.csproj", "{0C8000E8-12E0-453C-B3D7-3830CBFFA52B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppleShop.Ordering.API", "AppleShop.Ordering.API\AppleShop.Ordering.API.csproj", "{459277A8-A957-4690-8880-392C7CDF5933}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppleShop.Ordering.API", "AppleShop.Ordering.API\AppleShop.Ordering.API.csproj", "{459277A8-A957-4690-8880-392C7CDF5933}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentProcessor", "PaymentProcessor\PaymentProcessor.csproj", "{EDCEB9D7-2B5B-4CCA-8169-04E6104ED065}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppleShop.Payment.API", "AppleShop.Payment.API\AppleShop.Payment.API.csproj", "{1FB41D24-1082-441E-A440-E98588AAF81A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,14 @@ Global
 		{459277A8-A957-4690-8880-392C7CDF5933}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{459277A8-A957-4690-8880-392C7CDF5933}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{459277A8-A957-4690-8880-392C7CDF5933}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDCEB9D7-2B5B-4CCA-8169-04E6104ED065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDCEB9D7-2B5B-4CCA-8169-04E6104ED065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDCEB9D7-2B5B-4CCA-8169-04E6104ED065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDCEB9D7-2B5B-4CCA-8169-04E6104ED065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB41D24-1082-441E-A440-E98588AAF81A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB41D24-1082-441E-A440-E98588AAF81A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB41D24-1082-441E-A440-E98588AAF81A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB41D24-1082-441E-A440-E98588AAF81A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +90,8 @@ Global
 		{4588F0DC-EBD0-4121-BAB8-3FFC85756403} = {B301F1DE-339E-40F9-BB83-A1BE60995F80}
 		{0C8000E8-12E0-453C-B3D7-3830CBFFA52B} = {D9160FC2-4532-4E21-9F08-CB55294796B4}
 		{459277A8-A957-4690-8880-392C7CDF5933} = {CD094AB8-3FCA-48FA-AC98-8ED2803B7BA2}
+		{EDCEB9D7-2B5B-4CCA-8169-04E6104ED065} = {6A3D24A9-B9D0-405B-8FB7-9D78306F39E6}
+		{1FB41D24-1082-441E-A440-E98588AAF81A} = {8E413E0F-E710-4710-B237-D13D4FAF669E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8679ECD-858A-4B20-A4A6-C564E39CB378}

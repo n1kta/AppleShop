@@ -42,7 +42,6 @@ namespace AppleShop.Ordering.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CouponCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("DiscountTotal")
@@ -106,8 +105,8 @@ namespace AppleShop.Ordering.API.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ProductName")
                         .IsRequired()

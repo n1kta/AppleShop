@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppleShop.Ordering.API.Migrations
 {
     [DbContext(typeof(OrderingDbContext))]
-    [Migration("20230515112012_Initial")]
-    partial class Initial
+    [Migration("20230528113139_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,7 +45,6 @@ namespace AppleShop.Ordering.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CouponCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("DiscountTotal")
@@ -109,8 +108,8 @@ namespace AppleShop.Ordering.API.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ProductName")
                         .IsRequired()

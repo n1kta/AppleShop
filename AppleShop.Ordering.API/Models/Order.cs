@@ -1,12 +1,15 @@
-﻿namespace AppleShop.Ordering.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AppleShop.Ordering.API.Models
 {
     public class Order
     {
+        [Key]
         public int OrderId { get; set; }
 
         public string UserId { get; set; }
 
-        public string CouponCode { get; set; }
+        public string? CouponCode { get; set; }
 
         public double OrderTotal { get; set; }
 
