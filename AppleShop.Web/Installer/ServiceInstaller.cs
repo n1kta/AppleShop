@@ -1,4 +1,5 @@
-﻿using AppleShop.Web.Extensions;
+﻿using AppleShop.Web.Domain.Services;
+using AppleShop.Web.Extensions;
 using AppleShop.Web.Services;
 
 namespace AppleShop.Web.Installer;
@@ -22,5 +23,7 @@ public class ServiceInstaller : IInstaller
         services.AddHttpClient<ICartService, CartService>()
             .SetHandlerLifetime(TimeSpan.FromMinutes(HandlerLifetime))
             .AddPolicyHandlers("PolicyConfig", configuration);
+
+        services.AddScoped<IPhotoService, PhotoService>();
     }
 }

@@ -24,9 +24,17 @@ public class ProductController : ApiController
     //[Authorize(Roles = "Customer")]
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponse<List<ProductDetailResponse>>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> GetAll(Guid id, int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAll(
+        Guid id,
+        int? color = null,
+        int? minPrice = null,
+        int? maxPrice = null,
+        int? memory = null,
+        int pageNumber = 1,
+        int pageSize = 10,
+        CancellationToken cancellationToken = default)
     {
-        var query = new GetAllProductsQuery(id);
+        var query = new GetAllProductsQuery(id, color, minPrice, maxPrice, memory, pageNumber, pageSize);
 
         var response = await Sender.Send(query, cancellationToken);
 

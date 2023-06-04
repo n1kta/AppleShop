@@ -8,5 +8,7 @@ public class OptionsInstaller : IInstaller
             .Configure<AppSettings>(configuration)
             .AddSession()
             .AddDistributedMemoryCache();
+
+        services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
     }
 }

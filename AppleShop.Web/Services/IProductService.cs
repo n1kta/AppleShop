@@ -6,7 +6,14 @@ namespace AppleShop.Web.Services;
 
 public interface IProductService
 {
-    Task<PagedResponse<List<ProductDetailResponse>>> GetAll(Guid? categoryId, int pageNumber = 1, int pageSize = 10);
+    Task<PagedResponse<List<ProductDetailResponse>>> GetAll(
+        Guid? categoryId,
+        int? color = null,
+        int? minPrice = null,
+        int? maxPrice = null,
+        int? memory = null,
+        int pageNumber = 1,
+        int pageSize = 10);
 
     Task<ProductDetailResponse?> GetById(Guid id);
 

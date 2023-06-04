@@ -18,9 +18,16 @@ namespace AppleShop.Web.Controllers
             _cartService = cartService;
         }
 
-        public async Task<IActionResult> Index(Guid? id, int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(
+            Guid? id,
+            int? color = null,
+            int? minPrice = null,
+            int? maxPrice = null,
+            int? memory = null,
+            int pageNumber = 1,
+            int pageSize = 10)
         {
-            var products = await _productService.GetAll(id, pageNumber, pageSize);
+            var products = await _productService.GetAll(id, color, minPrice, maxPrice, memory, pageNumber, pageSize);
 
             var result = new ProductListViewModel { Products = products };
 
@@ -74,6 +81,11 @@ namespace AppleShop.Web.Controllers
             }
 
             return View(productDto);
+        }
+
+        public async Task<IActionResult> Real()
+        {
+            return View();
         }
     }
 }

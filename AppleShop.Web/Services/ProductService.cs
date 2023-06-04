@@ -23,12 +23,31 @@ public class ProductService : IProductService
         _remoteServiceBaseUrl = $"{_settings.Value.ProductUrl}/api/v1";
     }
 
-    public async Task<PagedResponse<List<ProductDetailResponse>>> GetAll(Guid? categoryId, int pageNumber = 1, int pageSize = 10)
+    public async Task<PagedResponse<List<ProductDetailResponse>>> GetAll(
+        Guid? categoryId,
+        int? color = null,
+        int? minPrice = null,
+        int? maxPrice = null,
+        int? memory = null,
+        int pageNumber = 1,
+        int pageSize = 10)
     {
         var url = API.Product.GetAll(_remoteServiceBaseUrl) + "?";
 
         if (Guid.Empty != categoryId)
             url += $"id={categoryId}&";
+
+        if (color != null)
+            url += $"color={color}&";
+
+        if (minPrice != null)
+            url += $"minPrice={minPrice}&";
+
+        if (maxPrice != null)
+            url += $"maxPrice={maxPrice}&";
+
+        if (memory != null)
+            url += $"memory={memory}&";
 
         url += $"pageNumber={pageNumber}&pageSize={pageSize}";
 

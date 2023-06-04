@@ -2,50 +2,50 @@
 
 <section class="products">
     <div class="filter">
-        <form action="">
+        <form method="get">
             <h1>Фільтр</h1>
             <div class="model-filter mt-4">
                 <h3>Колір:</h3>
                 <div class="model">
                     <div class="model-value">
-                        <input type="checkbox" class="form-check" name="">
-                        <label for="ram64">Чорний</label>
+                        <input type="radio" class="form-check" id="color" name="color" value="1">
+                        <label for="color">Чорний</label>
                     </div>
                     <div class="model-value">
-                        <input type="checkbox" class="form-check" name="">
-                        <label for="ram64">Білий</label>
+                        <input type="radio" class="form-check" id="color" name="color" value="0">
+                        <label for="color">Білий</label>
                     </div>
                 </div>
             </div>
             <div class="price-filter mt-2">
                 <h3>Ціна:</h3>
                 <div class="price">
-                    <input type="text" class="form-control" placeholder="Мін. ціна" name="minPrice">
-                    <input type="text" class="form-control mt-2" placeholder="Макс. ціна" name="maxPrice">
+                    <input type="text" class="form-control" placeholder="Мін. ціна" id="minPrice" name="minPrice">
+                    <input type="text" class="form-control mt-2" placeholder="Макс. ціна" id="maxPrice" name="maxPrice">
                 </div>
             </div>
             <div class="ram-filter mt-2">
                 <h3>Об'єм пам'яті:</h3>
                 <div class="ram">
                     <div class="ram-value">
-                        <input type="checkbox" class="form-check" name="">
-                        <label for="ram64">64 GB</label>
+                        <input type="radio" class="form-check" id="memory" name="memory" value="64">
+                        <label for="memory">64 GB</label>
                     </div>
                     <div class="ram-value">
-                        <input type="checkbox" class="form-check" name="">
-                        <label for="ram64">128 GB</label>
+                        <input type="radio" class="form-check" id="memory" name="memory" value="128">
+                        <label for="memory">128 GB</label>
                     </div>
                     <div class="ram-value">
-                        <input type="checkbox" class="form-check" name="">
-                        <label for="ram64">256 GB</label>
+                        <input type="radio" class="form-check" id="memory" name="memory" value="256">
+                        <label for="memory">256 GB</label>
                     </div>
                     <div class="ram-value">
-                        <input type="checkbox" class="form-check" name="">
-                        <label for="ram64">512 GB</label>
+                        <input type="radio" class="form-check" id="memory" name="memory" value="512">
+                        <label for="memory">512 GB</label>
                     </div>
                     <div class="ram-value">
-                        <input type="checkbox" class="form-check" name="">
-                        <label for="ram64">1 TB</label>
+                        <input type="radio" class="form-check" id="memory" name="memory" value="1024">
+                        <label for="memory">1 TB</label>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                             @foreach (var item in Model.Products.Data)
                             {
                                 <li class="product card">
-                                    <img class="card-img-top" src="..." alt="Card image cap">
+                                    <img class="card-img-top" src="@item.PictureUri" alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title">@item.Name</h5>
                                         <div class="product-status mb-2">

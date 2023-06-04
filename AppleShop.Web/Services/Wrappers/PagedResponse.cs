@@ -21,6 +21,11 @@ public class PagedResponse<T> : ApiResponse<T>
     [JsonIgnore]
     public bool HasPreviousPage => PageNumber > 1;
 
+    public int? Color { get; set; }
+    public int? MinPrice { get; set; }
+    public int? MaxPrice { get; set; }
+    public int? Memory { get; set; }
+
     public PagedResponse(Guid? id, T data, int pageNumber, int pageSize, int totalRecords)
     {
         Id = id;
