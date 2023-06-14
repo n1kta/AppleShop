@@ -4,6 +4,7 @@ using AppleShop.Product.API.Exceptions;
 using AppleShop.Product.API.Infrastructure;
 using AppleShop.Product.API.Response;
 using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AppleShop.Product.API.Features.Product.Commands.UpdateProduct;
 
@@ -27,7 +28,11 @@ public sealed class UpdateProductCommandHandler : ICommandHandler<UpdateProductC
         if (product is null)
             throw new ApiException(ProductErrorMessage.ProductDoesNotExist);
 
+        var pictureUri = string.IsNullOrEmpty(request.PictureUri) ? product.PictureUri : request.PictureUri;
+
         _mapper.Map(request, product);
+
+        product.PictureUri = pictureUri;
 
         await _dbContext.SaveChangesAsync();
 

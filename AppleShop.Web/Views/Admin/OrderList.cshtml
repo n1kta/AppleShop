@@ -1,0 +1,30 @@
+﻿@model OrderListViewModel
+
+<div class="container mt-3">
+    <h2>Список замовлень</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Повне ім'я</th>
+                <th>Електронна пошта</th>
+                <th>Телефон</th>
+                <th>Номер карти</th>
+                <th>К-сть</th>
+                <th>Ціна</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone</td>
+                    <td>@item.CardNumber</td>
+                    <td>@item.CartTotalItems</td>
+                    <td>@item.OrderTotal грн</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

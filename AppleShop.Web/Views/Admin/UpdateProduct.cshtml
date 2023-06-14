@@ -1,0 +1,74 @@
+﻿@using AppleShop.Web.Services;
+@model UpdateProductModel
+
+@inject ICategoryService categoryService
+
+@{
+    var categories = await categoryService.GetAll();
+}
+
+<div class="container mt-3">
+    <h2>Оновити продукт</h2>
+    <form method="post" enctype="multipart/form-data">
+        <input id="id" name="id" hidden value="@Model.Id" />
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Назва" value="@Model.Name">
+        </div>
+        <div class="form-group mt-2">
+            <input type="text" class="form-control" id="series" name="series" placeholder="Серія" value="@Model.Series">
+        </div>
+        <div class="form-group mt-2">
+            <textarea class="form-control" id="description" name="description" rows="3"
+                      placeholder="Опис">@Model.Description</textarea>
+        </div>
+        <div class="form-group">
+            <label for="product-price" for="color">Колір</label>
+            <select class="form-control" name="color" id="color">
+                @if ((int)Model.Color == 0)
+                {
+                    <option value="0" selected>Білий</option>
+                    <option value="1">Чорний</option>
+                }
+                else if ((int)Model.Color == 1)
+                {
+                    <option value="0" >Білий</option>
+                    <option value="1" selected>Чорний</option>
+                }
+                else
+                {
+                    <option value="0">Білий</option>
+                    <option value="1">Чорний</option>
+                }
+            </select>
+        </div>
+        <div class="form-group mt-2">
+            <input type="number" class="form-control" id="memory" name="memory" placeholder="Пам'ять" value="@Model.Memory">
+        </div>
+        <div class="form-group mt-2">
+            <input type="number" class="form-control" id="availableStock" name="availableStock" placeholder="Наявний запас" value="@Model.AvailableStock">
+        </div>
+        <div class="form-group mt-2">
+            <input type="number" class="form-control" id="price" name="price" placeholder="Ціна" value="@Model.Price">
+        </div>
+        <div class="form-group">
+            <label for="categoryId">Категорія</label>
+            <select class="form-control" name="categoryId" id="categoryId">
+                @foreach (var item in categories)
+                {
+                    @if (Model.CategoryId == item.Id)
+                    {
+                        <option value="@item.Id" selected>@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <input type="file" class="form-control-file" id="picture" name="picture">
+        </div>
+        <button type="submit" class="btn btn-primary">Оновити</button>
+    </form>
+</div>

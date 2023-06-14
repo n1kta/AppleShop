@@ -2,6 +2,12 @@
 
 public static class API
 {
+    public static class Order
+    {
+        public static string GetAll(string baseUri)
+            => $"{baseUri}/order";
+    }
+
     public static class Product
     {
         public static string GetAll(string baseUri)

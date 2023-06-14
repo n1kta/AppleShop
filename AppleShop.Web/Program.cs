@@ -1,4 +1,5 @@
 using AppleShop.Web.Installer;
+using AppleShop.Web.Middlewares;
 using Microsoft.AspNetCore.Authentication;
 using Serilog;
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.RegisterServices(builder.Configuration);
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllersWithViews();
 
@@ -58,6 +61,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<PermissionMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

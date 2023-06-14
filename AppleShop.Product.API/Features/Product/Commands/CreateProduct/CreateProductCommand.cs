@@ -11,4 +11,5 @@ public sealed record CreateProductCommand(
     int AvailableStock,
     string PictureUri,
     double Price,
-    Guid CategoryId) : ICommand<Guid>;
+    Guid CategoryId,
+    string? Series) : ICommand<Guid>;

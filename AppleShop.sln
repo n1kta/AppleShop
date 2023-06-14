@@ -33,9 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppleShop.Basket.API", "App
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppleShop.Ordering.API", "AppleShop.Ordering.API\AppleShop.Ordering.API.csproj", "{459277A8-A957-4690-8880-392C7CDF5933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentProcessor", "PaymentProcessor\PaymentProcessor.csproj", "{EDCEB9D7-2B5B-4CCA-8169-04E6104ED065}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentProcessor", "PaymentProcessor\PaymentProcessor.csproj", "{EDCEB9D7-2B5B-4CCA-8169-04E6104ED065}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppleShop.Payment.API", "AppleShop.Payment.API\AppleShop.Payment.API.csproj", "{1FB41D24-1082-441E-A440-E98588AAF81A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppleShop.Payment.API", "AppleShop.Payment.API\AppleShop.Payment.API.csproj", "{1FB41D24-1082-441E-A440-E98588AAF81A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

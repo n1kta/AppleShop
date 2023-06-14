@@ -10,4 +10,5 @@ public sealed record UpdateProductRequest(Guid Id,
     int AvailableStock,
     string? PictureUri,
     double Price,
-    string CategoryName);
+    Guid CategoryId,
+    string? Series);

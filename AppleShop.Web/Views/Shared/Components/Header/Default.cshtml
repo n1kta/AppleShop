@@ -1,26 +1,65 @@
 ﻿@model IEnumerable<AppleShop.Web.Services.ModelResponse.CatalogWithProductsResponse>
+
+@{
+    var isAdmin = User.Identity != null
+                && User.Identity.IsAuthenticated
+                && User.Claims.Any(claim => claim.Value.ToLower().Contains("admin"));
+}
+
 <header
     class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 navbar-dark p-4">
     <a class="navbar-brand" href="/">AppleShop</a>
+
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        @foreach (var item in Model)
+        @if (isAdmin)
         {
             <li>
                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @item.Name
+                    Продукти
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @foreach (var product in item.Product)
-                    {
-                        <a class="dropdown-item" asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">@product.Name</a>
-                    }
+                    <a class="dropdown-item" asp-action="ProductList" asp-controller="Admin">Всі продукти</a>
+                    <a class="dropdown-item" asp-action="CreateProduct" asp-controller="Admin">Створити</a>
                 </div>
             </li>
+            <li>
+                <a class="nav-link text-white" asp-action="OrderList" asp-controller="Admin">
+                    Замовлення
+                </a>
+            </li>
+            <li>
+                <a class="nav-link text-white" href="#">
+                    Користувачі
+                </a>
+            </li>
+            <li>
+                <a class="nav-link text-white" href="#">
+                    Статистика
+                </a>
+            </li>
         }
-        <li>
-            <a class="nav-link text-white" role="button" asp-controller="Product" asp-action="Index" asp-route-id="@Guid.Empty">Всі продукти</a>
-        </li>
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @item.Name
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @foreach (var product in item.Product)
+                        {
+                            <a class="dropdown-item" asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">@product.Name</a>
+                        }
+                    </div>
+                </li>
+            }
+            <li>
+                <a class="nav-link text-white" role="button" asp-controller="Product" asp-action="Index" asp-route-id="@Guid.Empty">Всі продукти</a>
+            </li>
+        }
     </ul>
 
     <div class="col-md-3 text-end">

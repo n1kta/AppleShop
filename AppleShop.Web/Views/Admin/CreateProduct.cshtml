@@ -1,0 +1,53 @@
+﻿@using AppleShop.Web.Services
+@model CreateProductModel
+
+@inject ICategoryService categoryService
+
+@{
+    var categories = await categoryService.GetAll();
+}
+
+<div class="container mt-3">
+    <h2>Створити продукт</h2>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="text" asp-for="Name" class="form-control" id="Name" name="Name" placeholder="Назва">
+        </div>
+        <div class="form-group mt-2">
+            <input type="text" asp-for="Series" class="form-control" id="Series" name="Series" placeholder="Серія">
+        </div>
+        <div class="form-group mt-2">
+            <textarea class="form-control" asp-for="Description" id="Description" name="Description" rows="3"
+                placeholder="Опис"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="product-price" asp-for="Color">Колір</label>
+            <select class="form-control" asp-for="Color" name="Color" id="Color">
+                <option value="0">Білий</option>
+                <option value="1">Чорний</option>
+            </select>
+        </div>
+        <div class="form-group mt-2">
+            <input type="number" class="form-control" asp-for="Memory" id="Memory" name="Memory" placeholder="Пам'ять">
+        </div>
+        <div class="form-group mt-2">
+            <input type="number" asp-for="AvailableStock" class="form-control" id="AvailableStock" name="AvailableStock" placeholder="Наявний запас">
+        </div>
+        <div class="form-group mt-2">
+            <input type="number" asp-for="Price" class="form-control" id="Price" name="Price" placeholder="Ціна">
+        </div>
+        <div class="form-group">
+            <label asp-for="CategoryId">Категорія</label>
+            <select class="form-control" asp-for="CategoryId" name="CategoryId" id="CategoryId">
+                @foreach (var item in categories)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <input type="file" asp-for="Picture" class="form-control-file" id="Picture" name="Picture">
+        </div>
+        <button type="submit" class="btn btn-primary">Створити</button>
+    </form>
+</div>

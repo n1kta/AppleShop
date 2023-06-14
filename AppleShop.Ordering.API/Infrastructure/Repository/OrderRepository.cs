@@ -1,4 +1,5 @@
-﻿using AppleShop.Ordering.API.Models;
+﻿using AppleShop.Ordering.API.DTOs;
+using AppleShop.Ordering.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AppleShop.Ordering.API.Infrastructure.Repository
@@ -10,6 +11,25 @@ namespace AppleShop.Ordering.API.Infrastructure.Repository
         public OrderRepository(DbContextOptions<OrderingDbContext> contextOptions)
         {
             _contextOptions = contextOptions;
+        }
+
+        public async Task<IEnumerable<OrderDto>> GetAll()
+        {
+            await using var _context = new OrderingDbContext(_contextOptions);
+
+            var order = await _context.Orders.ToListAsync();
+
+            var result = order.Select(o => new OrderDto
+            {
+                FullName = o.FirstName + " " + o.LastName,
+                Email = o.Email,
+                Phone = o.Phone,
+                CardNumber = o.CardNumber,
+                CartTotalItems = o.CartTotalItems,
+                OrderTotal = o.OrderTotal
+            }).ToList();
+
+            return result;
         }
 
         public async Task<bool> AddOrder(Order order)

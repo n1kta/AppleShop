@@ -24,6 +24,10 @@ public class ServiceInstaller : IInstaller
             .SetHandlerLifetime(TimeSpan.FromMinutes(HandlerLifetime))
             .AddPolicyHandlers("PolicyConfig", configuration);
 
+        services.AddHttpClient<IOrderService, OrderService>()
+            .SetHandlerLifetime(TimeSpan.FromMinutes(HandlerLifetime))
+            .AddPolicyHandlers("PolicyConfig", configuration);
+
         services.AddScoped<IPhotoService, PhotoService>();
     }
 }

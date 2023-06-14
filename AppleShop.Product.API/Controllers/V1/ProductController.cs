@@ -77,7 +77,7 @@ public class ProductController : ApiController
     }
 
     //[Authorize(Roles = "Admin")]
-    [HttpPut("update/{id}")]
+    [HttpPost("update/{id}")]
     [ProducesResponseType(typeof(ApiResponse<Guid>), (int)HttpStatusCode.OK)]
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> Update(Guid id, UpdateProductCommand command, CancellationToken cancellationToken)

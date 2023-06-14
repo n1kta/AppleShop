@@ -11,4 +11,5 @@ public sealed record UpdateProductCommand(Guid Id,
     int AvailableStock,
     string? PictureUri,
     double Price,
-    string CategoryName) : ICommand<Guid>;
+    Guid CategoryId,
+    string? Series) : ICommand<Guid>;
