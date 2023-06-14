@@ -1,0 +1,35 @@
+﻿ <div class="container mt-3">
+     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "@Url.Action("OrderStatisticJson", "Admin")",
+            data: {},
+            method: "GET",
+            success: function (data) {
+                var options = {
+                    animationEnabled: true,
+                    title: {
+                        text: "Оформлені замовлення"
+                    },
+                    axisY: {
+                        title: "К-сть замовленнь",
+                        suffix: ""
+                    },
+                    axisX: {
+                        title: "Повні імена"
+                    },
+                    data: [{
+                        type: "column",
+                        yValueFormatString: "#,##0.0#" % "",
+                        dataPoints: data
+                    }]
+                };
+
+                $("#chartContainer").CanvasJSChart(options);
+            }
+        });
+    });
+</script>

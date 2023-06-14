@@ -5,4 +5,6 @@ namespace AppleShop.Web.Services;
 public interface IOrderService
 {
     Task<IEnumerable<OrderResponse>> GetAll();
+
+    Task<IEnumerable<OrderStatisticResponse>> GetStatistic();
 }

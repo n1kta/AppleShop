@@ -29,4 +29,13 @@ public class OrderService : IOrderService
 
         return response;
     }
+
+    public async Task<IEnumerable<OrderStatisticResponse>> GetStatistic()
+    {
+        var url = API.Order.GetStatistic(_remoteServiceBaseUrl);
+
+        var response = await _httpClient.GetRequestAsync<ApiResponse<IEnumerable<OrderStatisticResponse>>, IEnumerable<OrderStatisticResponse>>(url);
+
+        return response;
+    }
 }

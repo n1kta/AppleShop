@@ -17,13 +17,24 @@ namespace AppleShop.Ordering.API.Controllers
             _orderRepository = orderRepository;
         }
 
-        [HttpGet]
+        [HttpGet("getAll")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<OrderDto>>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
         {
             var orders = await _orderRepository.GetAll();
 
             var result = ApiResponse<IEnumerable<OrderDto>>.Success(orders);
+
+            return Ok(result);
+        }
+
+        [HttpGet("getStatistic")]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<OrderStatisticDto>>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetStatistic()
+        {
+            var orders = await _orderRepository.GetStatistic();
+
+            var result = ApiResponse<IEnumerable<OrderStatisticDto>>.Success(orders);
 
             return Ok(result);
         }

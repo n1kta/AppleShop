@@ -1,0 +1,26 @@
+﻿@using AppleShop.Web.Services.ModelResponse;
+
+@model IEnumerable<UserResponse>
+
+<div class="container mt-3">
+    <h2>Список юзерів</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ім'я</th>
+                <th>Фамілія</th>
+                <th>Електронна пошта</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

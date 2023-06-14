@@ -32,6 +32,20 @@ namespace AppleShop.Ordering.API.Infrastructure.Repository
             return result;
         }
 
+        public async Task<IEnumerable<OrderStatisticDto>> GetStatistic()
+        {
+            await using var _context = new OrderingDbContext(_contextOptions);
+
+            var grouppedOrder = await _context.Orders
+                .GroupBy(
+                    p => new { p.FirstName, p.LastName},
+                    p => p.OrderTotal,
+                    (key, g) => new OrderStatisticDto { FullName = key.FirstName + " " + key.LastName, Amount = (int) g.Sum() })
+                .ToListAsync();
+
+            return grouppedOrder;
+        }
+
         public async Task<bool> AddOrder(Order order)
         {
             await using var _context = new OrderingDbContext(_contextOptions);

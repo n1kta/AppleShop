@@ -7,6 +7,8 @@ namespace AppleShop.Ordering.API.Infrastructure.Repository
     {
         Task<IEnumerable<OrderDto>> GetAll();
 
+        Task<IEnumerable<OrderStatisticDto>> GetStatistic();
+
         Task<bool> AddOrder(Order order);
 
         Task<bool> UpdateOrderPaymentStatus(int orderId, bool isPaid);

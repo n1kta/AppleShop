@@ -16,17 +16,20 @@ namespace AppleShop.Web.Controllers
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IOrderService _orderService;
+        private readonly IUserService _userService;
         private readonly IPhotoService _photoService;
 
         public AdminController(
             IProductService productService,
             ICategoryService categoryService,
             IOrderService orderService,
+            IUserService userService,
             IPhotoService photoService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _orderService = orderService;
+            _userService = userService;
             _photoService = photoService;
         }
 
@@ -157,6 +160,31 @@ namespace AppleShop.Web.Controllers
             var result = new OrderListViewModel { Orders = orders };
 
             return View(result);
+        }
+
+        public async Task<IActionResult> OrderStatistic()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> OrderStatisticJson()
+        {
+            var statistics = await _orderService.GetStatistic();
+
+            var result = statistics.Select(s => new { Label = s.FullName, Y = s.Amount }).ToList();
+
+            return Ok(result);
+        }
+
+        #endregion
+
+        #region User Actions
+
+        public async Task<IActionResult> UserList()
+        {
+            var users = await _userService.GetUsers();
+
+            return View(users);
         }
 
         #endregion

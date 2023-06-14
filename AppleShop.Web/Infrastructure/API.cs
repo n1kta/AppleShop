@@ -2,10 +2,19 @@
 
 public static class API
 {
+    public static class User
+    {
+        public static string GetUsers(string baseUri)
+            => $"{baseUri}/user/getUsers";
+    }
+
     public static class Order
     {
         public static string GetAll(string baseUri)
-            => $"{baseUri}/order";
+            => $"{baseUri}/order/getAll";
+
+        public static string GetStatistic(string baseUri)
+            => $"{baseUri}/order/getStatistic";
     }
 
     public static class Product
